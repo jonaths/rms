@@ -4,14 +4,12 @@ import gym_windy
 from utils.qlearning import QLearningAgent
 # from keras.utils import to_categorical
 import numpy as np
+from rms.rms import RmsAlg
 import sys
 
 # from plotter import Plotter
 
-env = gym.make("windy-v0")
-# env.setWindyProb(0.1)
-
-# agent= C51Agent(5,2,51)
+env = gym.make("border-v0")
 
 actionFn = lambda state: env.get_possible_actions(state)
 qLearnOpts = {'gamma': 0.9,
@@ -21,66 +19,76 @@ qLearnOpts = {'gamma': 0.9,
               'actionFn': actionFn
               }
 agent = QLearningAgent(**qLearnOpts)
-s_t = env.reset()
 
-misc = {'sum_reward': 0, 'step_seq': 0}
-prev_misc = misc
+max_games = 1000
+reps = 10
 
-final_state_buffer, reward_buffer, steps_buffer = [], [], []
-GAME = 0
-t = 0
-r_t = 0
-agent.startEpisode()
-# real_time_plotter = Plotter()
-for i_game in range(10000):
-    #  env.render()
-    # print(s_t)
-    action_idx = agent.getAction(s_t)
-    obs, r, done, misc = env.step(action_idx)
-    agent.observeTransition(s_t, action_idx, obs, r)
-    #   print (s_t,action_idx, obs, r)
-    # print (obs,r,done,misc)
+reward_results = np.zeros((reps, max_games))
+steps_results = np.zeros((reps, max_games))
+end_state_results = np.zeros((reps, max_games))
+
+for rep in range(reps):
+
+    print("Rep: {} =========================================================").format(rep)
+
+    s_t = env.reset()
+
+    alg = RmsAlg(-1, 2, 0)
+    alg.add_to_v(s_t, env.ind2coord(s_t))
+
+    misc = {'sum_reward': 0, 'step_seq': 0}
     prev_misc = misc
-    s_t = obs
-    t += 1
-    r_t += r
 
-    if env.done:
-        #   last=misc['step_seq']
-        #   print ("last",last)
-        final_state_buffer.append(str(misc['step_seq'][-1]))
-        s_t = env.reset()
-        agent.stopEpisode()
-        agent.startEpisode()
-        GAME += 1
-        steps_buffer.append(t)
-        reward_buffer.append(r_t)
-        t = 0
-        r_t = 0
+    final_state_buffer, reward_buffer, steps_buffer = [], [], []
+    GAME = 0
+    done = False
+    t = 0
+    r_t = 0
+    agent.startEpisode()
 
-        if GAME % agent.stats_window_size == 0:
-            # Reset rolling stats buffer
-            agent.mavg_reward.append(np.mean(np.array(reward_buffer)))
-            agent.var_reward.append(np.std(np.array(reward_buffer)))
-            agent.mavg_steps.append(np.mean(np.array(steps_buffer)))
-            agent.var_steps.append(np.std(np.array(steps_buffer)))
-            agent.end_count.append(final_state_buffer)
-            final_state_buffer, reward_buffer, steps_buffer = [], [], []
+    while GAME < max_games:
 
-        if GAME % 100 == 0:
-            # real_time_plotter.plot_learning_curve("Learning",agent.mavg_reward, agent.var_reward)
-            print(GAME, agent.qvals)
+        print("Game: {} ---------------------------------------------------").format(GAME)
 
-        with open("statistics/ql_stats.txt", "w") as stats_file:
-            stats_file.write('Games: ' + str(GAME) + '\n')
+        while not done:
 
-            stats_file.write('mavg_reward: ' + str(agent.mavg_reward) + '\n')
-            np.save('statistics/mavg_reward.npy', np.array(agent.mavg_reward))
+            action_idx = agent.getAction(s_t)
+            obs, r, done, misc = env.step(action_idx)
+            alg.update(s_t, r, obs, env.ind2coord(obs))
+            risk_penalty = alg.get_risk(obs)
+            # agent.observeTransition(s_t, action_idx, obs, r + risk_penalty)
+            agent.observeTransition(s_t, action_idx, obs, r)
 
-            stats_file.write('var_reward: ' + str(agent.var_reward) + '\n')
-            np.save('statistics/var_reward.npy', np.array(agent.var_reward))
+            print("=", s_t, action_idx, obs, r)
+            env.render()
+            # print("risk_dict", alg.get_risk_dict())
 
-            stats_file.write('mavg_steps: ' + str(agent.var_steps) + '\n')
-            np.save('statistics/mavg_steps.npy', np.array(agent.mavg_steps))
+            prev_misc = misc
+            s_t = obs
+            t += 1
+            r_t += r
 
-            stats_file.write('mavg_end_count: ' + str(agent.end_count) + '\n')
+            input("XXX")
+
+        if env.done:
+            done = False
+            s_t = env.reset()
+            agent.stopEpisode()
+            agent.startEpisode()
+
+
+            reward_results[rep][GAME] = r_t
+            steps_results[rep][GAME] = t
+            end_state_results[rep][GAME] = misc['step_seq'][-1]
+
+            t = 0
+            r_t = 0
+            GAME += 1
+
+    np.save('statistics/reward.npy', np.array(reward_results))
+    np.save('statistics/step.npy', np.array(steps_results))
+    np.save('statistics/end_state.npy', np.array(end_state_results))
+
+    print("END")
+
+    print(np.load('statistics/reward.npy'))
