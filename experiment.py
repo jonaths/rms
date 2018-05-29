@@ -9,7 +9,7 @@ import sys
 
 # from plotter import Plotter
 
-env = gym.make("border-v0")
+env = gym.make("beach-v0")
 
 actionFn = lambda state: env.get_possible_actions(state)
 qLearnOpts = {'gamma': 0.9,
@@ -18,25 +18,31 @@ qLearnOpts = {'gamma': 0.9,
               'numTraining': 5000,
               'actionFn': actionFn
               }
-agent = QLearningAgent(**qLearnOpts)
 
-max_games = 1000
-reps = 10
+num_actions = 4
+num_states = 64
+max_games = 500
+reps = 5
 
 reward_results = np.zeros((reps, max_games))
 steps_results = np.zeros((reps, max_games))
 end_state_results = np.zeros((reps, max_games))
+q_table = np.zeros((reps, num_states, num_actions))
+policy = np.zeros((reps, num_states))
 
 for rep in range(reps):
+
+    agent = QLearningAgent(**qLearnOpts)
 
     print("Rep: {} =========================================================").format(rep)
 
     s_t = env.reset()
 
-    alg = RmsAlg(-1, 2, 0)
+    # RmsAlg(rthres, influence, risk_default)
+    alg = RmsAlg(rthres=-1, influence=1, risk_default=0)
     alg.add_to_v(s_t, env.ind2coord(s_t))
 
-    misc = {'sum_reward': 0, 'step_seq': 0}
+    misc = {'sum_reward': 0, 'step_seq': 0, 'elevation': env.default_elevation}
     prev_misc = misc
 
     final_state_buffer, reward_buffer, steps_buffer = [], [], []
@@ -53,29 +59,45 @@ for rep in range(reps):
         while not done:
 
             action_idx = agent.getAction(s_t)
+            # action_idx = input("Action: ")
             obs, r, done, misc = env.step(action_idx)
-            alg.update(s_t, r, obs, env.ind2coord(obs))
+
+            # slope = (prev_misc['elevation'] - misc['elevation']) / 1.
+            # if slope != 0:
+            #     slope_r = -3
+            #
+            # else:
+            #     slope_r = r
+            # alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
+
+            # aqui voy... acabo de cambiar a recompensa en lugar de pendiente, pero no baja con el area de sguridad???
+
+            alg.update(s=s_t, r=r, sprime=obs, sprime_features=env.ind2coord(obs))
+
             risk_penalty = alg.get_risk(obs)
+            print(r, risk_penalty)
+
             # agent.observeTransition(s_t, action_idx, obs, r + risk_penalty)
             agent.observeTransition(s_t, action_idx, obs, r)
 
-            print("=", s_t, action_idx, obs, r)
-            env.render()
-            # print("risk_dict", alg.get_risk_dict())
+            print("=", s_t, action_idx, obs, r, misc['elevation'])
+
+            # env.render()
+            print("risk_dict", alg.get_risk_dict_no_zeros())
 
             prev_misc = misc
             s_t = obs
             t += 1
             r_t += r
 
-            input("XXX")
+        if GAME > max_games * 0.8:
+            agent.setEpsilon(0.0)
 
         if env.done:
             done = False
             s_t = env.reset()
             agent.stopEpisode()
             agent.startEpisode()
-
 
             reward_results[rep][GAME] = r_t
             steps_results[rep][GAME] = t
@@ -89,6 +111,27 @@ for rep in range(reps):
     np.save('statistics/step.npy', np.array(steps_results))
     np.save('statistics/end_state.npy', np.array(end_state_results))
 
-    print("END")
+    states = range(0, num_states)
 
-    print(np.load('statistics/reward.npy'))
+    current_q_table = []
+    current_policy = []
+    for s in states:
+        action_values = []
+        for a in range(num_actions):
+            action_values.append(agent.getQValue(s, a))
+            policy_state = agent.getPolicy(s)
+        print(s, policy_state, action_values)
+        current_q_table.append(action_values)
+        current_policy.append(policy_state)
+    q_table[rep] = np.array(current_q_table)
+    policy[rep] = np.array(current_policy)
+
+np.save('statistics/q_table.npy', q_table)
+np.save('statistics/policy.npy', policy)
+
+test1 = np.load('statistics/q_table.npy')
+test2 = np.load('statistics/policy.npy')
+print(test1.shape)
+print(test1[-1])
+print(test2[-1])
+print("END")

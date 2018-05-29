@@ -66,7 +66,7 @@ class RmsAlg:
         if self.risk_func_name == 'inverse':
             risk = inverse(difference)
         else:
-            raise 'Invalid risk func'
+            raise Exception('Invalid risk func')
 
         # print(difference, risk)
         return risk
@@ -82,7 +82,7 @@ class RmsAlg:
         :return:
         """
         if s not in self.v:
-            raise "Nonexistent state. "
+            raise Exception("Nonexistent state: {}. v: {}".format(s, self.v))
         # verifica que el estado este en la lista de conocidos
         self.add_to_v(sprime, sprime_features)
         # verifica si es necesario agregarlo a la lisa de riesgosos
@@ -114,4 +114,12 @@ class RmsAlg:
         risk_dict = {}
         for index, val in self.v.items():
             risk_dict[index] = self.get_risk(index)
+        return risk_dict
+
+    def get_risk_dict_no_zeros(self):
+        risk_dict = {}
+        for index, val in self.v.items():
+            risk = self.get_risk(index)
+            if risk != 0:
+                risk_dict[index] = risk
         return risk_dict
