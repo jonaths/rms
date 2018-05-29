@@ -1,6 +1,7 @@
 # custom
 *.npy
 statistics/*
+figures/*
 
 te-compiled / optimized / DLL files
 __pycache__/
