@@ -77,13 +77,13 @@ for rep in range(reps):
             risk_penalty = alg.get_risk(obs)
             print(r, risk_penalty)
 
-            # agent.observeTransition(s_t, action_idx, obs, r + risk_penalty)
-            agent.observeTransition(s_t, action_idx, obs, r)
+            agent.observeTransition(s_t, action_idx, obs, r + risk_penalty)
+            # agent.observeTransition(s_t, action_idx, obs, r)
 
             print("=", s_t, action_idx, obs, r, misc['elevation'])
 
             # env.render()
-            print("risk_dict", alg.get_risk_dict_no_zeros())
+            print("risk_    dict", alg.get_risk_dict_no_zeros())
 
             prev_misc = misc
             s_t = obs
