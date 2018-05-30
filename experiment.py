@@ -62,25 +62,28 @@ for rep in range(reps):
             # action_idx = input("Action: ")
             obs, r, done, misc = env.step(action_idx)
 
-            # slope = (prev_misc['elevation'] - misc['elevation']) / 1.
-            # if slope != 0:
-            #     slope_r = -3
-            #
-            # else:
-            #     slope_r = r
+            # probando aqui... ver como se asigna el riesgo.
+
+            # la playa esta hacia abajo
+            # si prev - now < 0 entonces se movio hacia abajo -> penalizar
+            # si prev - now >= 0 entonces no se movio o se movio hacia arriba -> no penalizar
+            slope = (prev_misc['elevation'] - misc['elevation']) / 1.
+            if slope > 0:
+                slope_r = -5
+            else:
+                slope_r = r
+            alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
+
             # alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
-
-            # aqui voy... acabo de cambiar a recompensa en lugar de pendiente, pero no baja con el area de sguridad???
-
-            alg.update(s=s_t, r=r, sprime=obs, sprime_features=env.ind2coord(obs))
 
             risk_penalty = alg.get_risk(obs)
             print(r, risk_penalty)
 
-            agent.observeTransition(s_t, action_idx, obs, r + risk_penalty)
-            # agent.observeTransition(s_t, action_idx, obs, r)
+            reward_signal = r + risk_penalty
+            # reward_signal = r
+            agent.observeTransition(s_t, action_idx, obs, reward_signal)
 
-            print("=", s_t, action_idx, obs, r, misc['elevation'])
+            print("=", s_t, action_idx, obs, reward_signal, misc['elevation'])
 
             # env.render()
             print("risk_    dict", alg.get_risk_dict_no_zeros())
