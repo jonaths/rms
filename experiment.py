@@ -9,7 +9,7 @@ import sys
 
 # from plotter import Plotter
 
-env = gym.make("beach-v0")
+env = gym.make("border-v0")
 
 actionFn = lambda state: env.get_possible_actions(state)
 qLearnOpts = {'gamma': 0.9,
@@ -20,9 +20,9 @@ qLearnOpts = {'gamma': 0.9,
               }
 
 num_actions = 4
-num_states = 64
+num_states = 40
 max_games = 500
-reps = 5
+reps = 10
 
 reward_results = np.zeros((reps, max_games))
 steps_results = np.zeros((reps, max_games))
@@ -39,7 +39,7 @@ for rep in range(reps):
     s_t = env.reset()
 
     # RmsAlg(rthres, influence, risk_default)
-    alg = RmsAlg(rthres=-1, influence=1, risk_default=0)
+    alg = RmsAlg(rthres=-1, influence=2, risk_default=0)
     alg.add_to_v(s_t, env.ind2coord(s_t))
 
     misc = {'sum_reward': 0, 'step_seq': 0, 'elevation': env.default_elevation}
@@ -67,14 +67,14 @@ for rep in range(reps):
             # la playa esta hacia abajo
             # si prev - now < 0 entonces se movio hacia abajo -> penalizar
             # si prev - now >= 0 entonces no se movio o se movio hacia arriba -> no penalizar
-            slope = (prev_misc['elevation'] - misc['elevation']) / 1.
-            if slope > 0:
-                slope_r = -5
-            else:
-                slope_r = r
-            alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
-
+            # slope = (prev_misc['elevation'] - misc['elevation']) / 1.
+            # if slope > 0:
+            #     slope_r = -5
+            # else:
+            #     slope_r = r
             # alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
+
+            alg.update(s=s_t, r=r, sprime=obs, sprime_features=env.ind2coord(obs))
 
             risk_penalty = alg.get_risk(obs)
             print(r, risk_penalty)
