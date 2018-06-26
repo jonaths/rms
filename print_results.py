@@ -23,7 +23,7 @@ def running_mean(array, period):
 reward = np.load('statistics/reward.npy')
 steps = np.load('statistics/step.npy')
 end_state = np.load('statistics/end_state.npy')
-rolling_window_size = 25
+rolling_window_size = 100
 
 # evenly sampled time at 200ms intervals
 t = np.arange(0., reward.shape[1], 1)

@@ -9,7 +9,7 @@ import sys
 
 # from plotter import Plotter
 
-env = gym.make("border-v0")
+env = gym.make("beach-v0")
 
 actionFn = lambda state: env.get_possible_actions(state)
 qLearnOpts = {'gamma': 0.9,
@@ -20,9 +20,13 @@ qLearnOpts = {'gamma': 0.9,
               }
 
 num_actions = 4
-num_states = 40
-max_games = 500
-reps = 10
+num_states = 64
+max_games = 1000
+init_epsilon = 0.1
+end_epsilon = 0.1
+test_period = 0.9
+epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
+reps = 5
 
 reward_results = np.zeros((reps, max_games))
 steps_results = np.zeros((reps, max_games))
@@ -33,13 +37,14 @@ policy = np.zeros((reps, num_states))
 for rep in range(reps):
 
     agent = QLearningAgent(**qLearnOpts)
+    agent.setEpsilon(init_epsilon)
 
     print("Rep: {} =========================================================").format(rep)
 
     s_t = env.reset()
 
     # RmsAlg(rthres, influence, risk_default)
-    alg = RmsAlg(rthres=-1, influence=2, risk_default=0)
+    alg = RmsAlg(rthres=-1, influence=1, risk_default=0)
     alg.add_to_v(s_t, env.ind2coord(s_t))
 
     misc = {'sum_reward': 0, 'step_seq': 0, 'elevation': env.default_elevation}
@@ -55,29 +60,31 @@ for rep in range(reps):
     while GAME < max_games:
 
         print("Game: {} ---------------------------------------------------").format(GAME)
+        print(agent.epsilon)
 
         while not done:
 
             action_idx = agent.getAction(s_t)
             # action_idx = input("Action: ")
             obs, r, done, misc = env.step(action_idx)
+            # env.render()
 
             # probando aqui... ver como se asigna el riesgo.
 
             # la playa esta hacia abajo
             # si prev - now < 0 entonces se movio hacia abajo -> penalizar
             # si prev - now >= 0 entonces no se movio o se movio hacia arriba -> no penalizar
-            # slope = (prev_misc['elevation'] - misc['elevation']) / 1.
-            # if slope > 0:
-            #     slope_r = -5
-            # else:
-            #     slope_r = r
-            # alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
+            slope = (prev_misc['elevation'] - misc['elevation']) / 1.
+            if slope > 0:
+                slope_r = -5
+            else:
+                slope_r = r
+            alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
 
-            alg.update(s=s_t, r=r, sprime=obs, sprime_features=env.ind2coord(obs))
+            # alg.update(s=s_t, r=r, sprime=obs, sprime_features=env.ind2coord(obs))
 
             risk_penalty = alg.get_risk(obs)
-            print(r, risk_penalty)
+            # print(r, risk_penalty)
 
             reward_signal = r + risk_penalty
             # reward_signal = r
@@ -86,15 +93,15 @@ for rep in range(reps):
             print("=", s_t, action_idx, obs, reward_signal, misc['elevation'])
 
             # env.render()
-            print("risk_    dict", alg.get_risk_dict_no_zeros())
+            # print("risk_    dict", alg.get_risk_dict_no_zeros())
 
             prev_misc = misc
             s_t = obs
             t += 1
             r_t += r
 
-        if GAME > max_games * 0.8:
-            agent.setEpsilon(0.0)
+        if GAME < max_games * test_period:
+            agent.setEpsilon(agent.epsilon - epsilon_step)
 
         if env.done:
             done = False
