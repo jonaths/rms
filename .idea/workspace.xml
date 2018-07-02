@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a88a3b31-1b23-4f3b-8f98-6d4351f82a5a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cartpole_experiment.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/cartpole.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/tupletoint.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/figures/results.pdf" afterPath="$PROJECT_DIR$/figures/results.pdf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/print_results.py" afterPath="$PROJECT_DIR$/print_results.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cartpole_experiment.py" afterPath="$PROJECT_DIR$/cartpole_experiment.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,8 +21,8 @@
       <file leaf-file-name="cartpole_experiment.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cartpole_experiment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="63" column="8" lean-forward="false" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
+            <state relative-caret-position="377">
+              <caret line="104" column="27" lean-forward="false" selection-start-line="104" selection-start-column="27" selection-end-line="104" selection-end-column="27" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -720,8 +716,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cartpole_experiment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="63" column="8" lean-forward="false" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
+        <state relative-caret-position="377">
+          <caret line="104" column="27" lean-forward="false" selection-start-line="104" selection-start-column="27" selection-end-line="104" selection-end-column="27" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

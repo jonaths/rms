@@ -59,9 +59,9 @@ num_states = tuple2int(NUM_BUCKETS)
 max_games = 400
 init_epsilon = 1.
 end_epsilon = 0.01
-test_period = 0.7
+test_period = 0.8
 epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
-reps = 5
+reps = 2
 
 reward_results = np.zeros((reps, max_games))
 steps_results = np.zeros((reps, max_games))
@@ -111,19 +111,19 @@ for rep in range(reps):
             # si prev - now < 0 entonces se movio hacia abajo -> penalizar
             # si prev - now >= 0 entonces no se movio o se movio hacia arriba -> no penalizar
             # slope = (prev_misc['elevation'] - misc['elevation']) / 1.
-            if state_to_bucket(s_t) in [10, 42]:
-                slope_r = r
-            else:
-                slope_r = r
-            alg.update(s=state_to_bucket(s_t), r=slope_r, sprime=state_to_bucket(obs), sprime_features=obs)
+            # if slope > 0:
+            #     slope_r = -5
+            # else:
+            #     slope_r = r
+            # alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
 
-            # alg.update(s=state_to_bucket(s_t), r=r, sprime=state_to_bucket(obs), sprime_features=obs)
+            alg.update(s=state_to_bucket(s_t), r=r, sprime=state_to_bucket(obs), sprime_features=obs)
 
             risk_penalty = alg.get_risk(state_to_bucket(obs))
             # print(r, risk_penalty)
 
-            reward_signal = r + risk_penalty
-            # reward_signal = r
+            # reward_signal = r + risk_penalty
+            reward_signal = r
             agent.observeTransition(state_to_bucket(s_t), action_idx, state_to_bucket(obs), reward_signal)
             misc['step_seq'].append(state_to_bucket(s_t))
 
