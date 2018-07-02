@@ -23,7 +23,7 @@ def running_mean(array, period):
 reward = np.load('statistics/reward.npy')
 steps = np.load('statistics/step.npy')
 end_state = np.load('statistics/end_state.npy')
-rolling_window_size = 100
+rolling_window_size = 40
 
 # evenly sampled time at 200ms intervals
 t = np.arange(0., reward.shape[1], 1)
@@ -47,7 +47,8 @@ axs[1].set_ylabel('Avg. steps')
 
 
 # search_states = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 54, 57, 58, 59, 60, 61, 62]
-search_states = [15, 19, 23, 27]
+# search_states = [15, 19, 23, 27]
+search_states = [10, 42]
 count = [1 if s in search_states else 0 for s in end_state.flatten()]
 count = np.array(count).reshape(reward.shape)
 
