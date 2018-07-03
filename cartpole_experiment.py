@@ -56,10 +56,10 @@ STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
 
 num_actions = env.action_space.n  # (left, right)
 num_states = tuple2int(NUM_BUCKETS)
-max_games = 400
+max_games = 500
 init_epsilon = 1.
 end_epsilon = 0.01
-test_period = 0.8
+test_period = 0.9
 epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
 reps = 2
 
@@ -105,19 +105,13 @@ for rep in range(reps):
             obs, r, done, _ = env.step(action_idx)
             # env.render()
 
-            # probando aqui... ver como se asigna el riesgo.
+            if state_to_bucket(s_t) in [10, 42]:
+                slope_r = r
+            else:
+                slope_r = r
+            alg.update(s=state_to_bucket(s_t), r=slope_r, sprime=state_to_bucket(obs), sprime_features=obs)
 
-            # la playa esta hacia abajo
-            # si prev - now < 0 entonces se movio hacia abajo -> penalizar
-            # si prev - now >= 0 entonces no se movio o se movio hacia arriba -> no penalizar
-            # slope = (prev_misc['elevation'] - misc['elevation']) / 1.
-            # if slope > 0:
-            #     slope_r = -5
-            # else:
-            #     slope_r = r
-            # alg.update(s=s_t, r=slope_r, sprime=obs, sprime_features=env.ind2coord(obs))
-
-            alg.update(s=state_to_bucket(s_t), r=r, sprime=state_to_bucket(obs), sprime_features=obs)
+            # alg.update(s=state_to_bucket(s_t), r=r, sprime=state_to_bucket(obs), sprime_features=obs)
 
             risk_penalty = alg.get_risk(state_to_bucket(obs))
             # print(r, risk_penalty)
