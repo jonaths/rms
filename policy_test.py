@@ -12,7 +12,7 @@ q_table = np.load('statistics/q_table.npy')
 print(q_table.shape)
 
 # generar imagen a partir de datos
-img_data = np.transpose(np.max(q_table[exp_number].reshape(8, 8, 4), axis=2))
+img_data = np.transpose(np.max(q_table[exp_number].reshape(8, 3, 2), axis=2))
 
 # # para que se vea como el escenario original
 # img_data = np.transpose(

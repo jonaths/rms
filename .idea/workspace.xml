@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a88a3b31-1b23-4f3b-8f98-6d4351f82a5a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/figures/results.pdf" afterPath="$PROJECT_DIR$/figures/results.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cartpole_exp.py" afterPath="$PROJECT_DIR$/cartpole_exp.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf_cartpole_exp.py" afterPath="$PROJECT_DIR$/conf_cartpole_exp.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/policy_test.py" afterPath="$PROJECT_DIR$/policy_test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,14 +21,14 @@
       <file leaf-file-name="conf_cartpole_exp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
+            <state relative-caret-position="15">
+              <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cartpole_exp.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cartpole_exp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cartpole_exp.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="690">
@@ -53,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="policy_test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="policy_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/policy_test.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
-              <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+              <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -126,7 +125,6 @@
         <option value="$PROJECT_DIR$/statistics/ql_stats.txt" />
         <option value="$PROJECT_DIR$/rms/libs/print_results.py" />
         <option value="$PROJECT_DIR$/rms/rms.py" />
-        <option value="$PROJECT_DIR$/policy_test.py" />
         <option value="$PROJECT_DIR$/utils/qlearning.py" />
         <option value="$PROJECT_DIR$/experiment.py" />
         <option value="$PROJECT_DIR$/tests/tupletoint.py" />
@@ -137,6 +135,7 @@
         <option value="$PROJECT_DIR$/cartpole_experiment.py" />
         <option value="$PROJECT_DIR$/cartpole_exp.py" />
         <option value="$PROJECT_DIR$/conf_cartpole_exp.py" />
+        <option value="$PROJECT_DIR$/policy_test.py" />
       </list>
     </option>
   </component>
@@ -580,14 +579,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/policy_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py" />
     <entry file="file://$PROJECT_DIR$/experiment.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -653,14 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cartpole_exp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
@@ -668,6 +651,22 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/policy_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+          <folding />
         </state>
       </provider>
     </entry>
