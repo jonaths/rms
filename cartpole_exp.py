@@ -83,8 +83,23 @@ num_states = np.prod(np.array([i for i in NUM_BUCKETS]))
 # Bounds for each discrete state
 STATE_BOUNDS = list(zip(env.observation_space.low, env.observation_space.high))
 STATE_BOUNDS[1] = [-0.5, 0.5]
+STATE_BOUNDS[2] = params['state_bounds_2']
 STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
 epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
+
+print(STATE_BOUNDS)
+# states = [
+#     [0., 0., 0., 0.],
+#     [0., 0., 0., -0.8726646259971648],
+#     [0., 0., 0., -0.9],
+# ]
+#
+# # states = [[0., 0., 0., step] for step in np.linspace(-0.8726646259971648, +0.8726646259971648, 200)]
+# states = [[0., 0., step, 0.] for step in np.linspace(-0.23, +0.23, 20)]
+#
+# for state in states:
+#     print(state_to_bucket(state), state)
+# sys.exit(0)
 
 reward_results = np.zeros((reps, max_games))
 steps_results = np.zeros((reps, max_games))
