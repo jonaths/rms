@@ -117,7 +117,7 @@ for rep in range(reps):
     s_t = env.reset()
 
     # RmsAlg(rthres, influence, risk_default)
-    alg = RmsAlg(rthres=-1, influence=1, risk_default=0)
+    alg = RmsAlg(rthres=params['rms']['rthres'], influence=params['rms']['influence'], risk_default=0)
     alg.add_to_v(state_to_bucket(s_t), s_t)
 
     misc = {'step_seq': []}
@@ -164,7 +164,7 @@ for rep in range(reps):
             # print("=", state_to_bucket(s_t), action_idx, state_to_bucket(obs), reward_signal)
 
             # env.render()
-            # print("risk_    dict", alg.get_risk_dict_no_zeros())
+            # print("risk_dict", alg.get_risk_dict_no_zeros())
 
             prev_misc = misc
             s_t = obs
@@ -176,6 +176,12 @@ for rep in range(reps):
 
         if done:
             done = False
+            reward_results[rep][GAME] = r_t
+            steps_results[rep][GAME] = t
+            end_state_results[rep][GAME] = bucket_obs
+            print("total reward: " + str(reward_results[rep][GAME]))
+            print("final_state: " + str(bucket_state))
+
             s_t = env.reset()
             bucket_state = state_to_bucket(s_t)
             alg.add_to_v(bucket_state, s_t)
@@ -183,18 +189,10 @@ for rep in range(reps):
             agent.stopEpisode()
             agent.startEpisode()
 
-            reward_results[rep][GAME] = r_t
-            steps_results[rep][GAME] = t
-            end_state_results[rep][GAME] = bucket_obs
-
-            print("total reward: " + str(reward_results[rep][GAME]))
-
             t = 0
             r_t = 0
             GAME += 1
             misc['step_seq'] = []
-
-
 
     np.save('statistics/reward.npy', np.array(reward_results))
     np.save('statistics/step.npy', np.array(steps_results))
