@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a88a3b31-1b23-4f3b-8f98-6d4351f82a5a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/figures/results.pdf" afterPath="$PROJECT_DIR$/figures/results.pdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cartpole_exp.py" afterPath="$PROJECT_DIR$/cartpole_exp.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf_cartpole_exp.py" afterPath="$PROJECT_DIR$/conf_cartpole_exp.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/policy_test.py" afterPath="$PROJECT_DIR$/policy_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/print_results.py" afterPath="$PROJECT_DIR$/print_results.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="conf_cartpole_exp.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="conf_cartpole_exp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+            <state relative-caret-position="120">
+              <caret line="8" column="43" lean-forward="false" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -31,8 +32,8 @@
       <file leaf-file-name="cartpole_exp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cartpole_exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="85" column="40" lean-forward="false" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
+            <state relative-caret-position="495">
+              <caret line="147" column="56" lean-forward="true" selection-start-line="147" selection-start-column="31" selection-end-line="147" selection-end-column="56" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -52,7 +53,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="policy_test.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="policy_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/policy_test.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
@@ -85,9 +86,11 @@
       <file leaf-file-name="print_results.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/print_results.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="50" column="24" lean-forward="false" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="765">
+              <caret line="51" column="41" lean-forward="false" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,11 +134,11 @@
         <option value="$PROJECT_DIR$/tests/cartpole.py" />
         <option value="$PROJECT_DIR$/tests/test.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/print_results.py" />
         <option value="$PROJECT_DIR$/cartpole_experiment.py" />
+        <option value="$PROJECT_DIR$/policy_test.py" />
         <option value="$PROJECT_DIR$/cartpole_exp.py" />
         <option value="$PROJECT_DIR$/conf_cartpole_exp.py" />
-        <option value="$PROJECT_DIR$/policy_test.py" />
+        <option value="$PROJECT_DIR$/print_results.py" />
       </list>
     </option>
   </component>
@@ -331,7 +334,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/print_results.py</url>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -625,14 +634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/print_results.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="50" column="24" lean-forward="false" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cartpole_experiment.py" />
     <entry file="file://$PROJECT_DIR$/utils/qlearning.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -644,28 +645,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/policy_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cartpole_exp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="85" column="40" lean-forward="false" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
+        <state relative-caret-position="495">
+          <caret line="147" column="56" lean-forward="true" selection-start-line="147" selection-start-column="31" selection-end-line="147" selection-end-column="56" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
+    <entry file="file://$PROJECT_DIR$/print_results.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="765">
+          <caret line="51" column="41" lean-forward="false" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/policy_test.py">
+    <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+        <state relative-caret-position="120">
+          <caret line="8" column="43" lean-forward="false" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
           <folding />
         </state>
       </provider>

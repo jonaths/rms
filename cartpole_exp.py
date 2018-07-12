@@ -145,7 +145,7 @@ for rep in range(reps):
             bucket_obs = state_to_bucket(obs)
             # env.render()
 
-            if bucket_state in [10, 42]:
+            if bucket_state in params['terminal_states']:
                 slope_r = r
             else:
                 slope_r = r

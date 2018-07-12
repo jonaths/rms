@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+from conf_cartpole_exp import params
 
 SMALL_SIZE = 12
 MEDIUM_SIZE = 14
@@ -48,7 +49,7 @@ axs[1].set_ylabel('Avg. steps')
 
 # search_states = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 54, 57, 58, 59, 60, 61, 62]
 # search_states = [15, 19, 23, 27]
-search_states = [10, 42]
+search_states = params['terminal_states']
 count = [1 if s in search_states else 0 for s in end_state.flatten()]
 count = np.array(count).reshape(reward.shape)
 
