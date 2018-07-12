@@ -58,10 +58,10 @@ num_actions = env.action_space.n  # (left, right)
 num_states = tuple2int(NUM_BUCKETS)
 max_games = 500
 init_epsilon = 1.
-end_epsilon = 0.01
-test_period = 0.9
+end_epsilon = 0.1
+test_period = 0.4
 epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
-reps = 2
+reps = 10
 
 reward_results = np.zeros((reps, max_games))
 steps_results = np.zeros((reps, max_games))
