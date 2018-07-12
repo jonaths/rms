@@ -12,11 +12,34 @@ from conf_cartpole_exp import params
 # from plotter import Plotter
 
 
-def tuple2int(tpl):
-    int_str = ''
-    for i in range(len(tpl)):
-        int_str += str(tpl[i])
-    return int(int_str)
+def tuple2int(buckets, tpl):
+    """
+    Recibe dos tuplas y regresa un int
+    :param buckets: (1, 1, 6, 3)
+    :param tpl: (0, 0, 5, 1)
+    :return: 16
+    """
+
+    if len(tpl) != len(buckets):
+        raise Exception('Invalid tuple len. ')
+
+    len_t = len(buckets)
+    for i in range(len_t):
+        if tpl[i] >= buckets[i]:
+            raise Exception('Invalid tuple value. ')
+
+    # calcula multiplicadores
+    mult = []
+    for i in range(len_t):
+        m = 1
+        pointer = i + 1
+        while pointer != len_t:
+            m = m * buckets[pointer]
+            pointer += 1
+        mult.append(m)
+    # suma y multiplica
+    index = sum([tpl[i] * mult[i] for i in range(len_t)])
+    return index
 
 
 def state_to_bucket(state):
@@ -33,7 +56,7 @@ def state_to_bucket(state):
             scaling = (NUM_BUCKETS[i] - 1) / bound_width
             bucket_index = int(round(scaling * state[i] - offset))
         bucket_indice.append(bucket_index)
-    return tuple2int(tuple(bucket_indice))
+    return tuple2int(NUM_BUCKETS, tuple(bucket_indice))
 
 
 env = gym.make('CartPole-v0')
@@ -55,9 +78,8 @@ test_period = params['test_period']
 reps = params['reps']
 
 # Number of discrete actions
-NUM_ACTIONS = env.action_space.n  # (left, right)
 num_actions = env.action_space.n  # (left, right)
-num_states = tuple2int(NUM_BUCKETS)
+num_states = np.prod(np.array([i for i in NUM_BUCKETS]))
 # Bounds for each discrete state
 STATE_BOUNDS = list(zip(env.observation_space.low, env.observation_space.high))
 STATE_BOUNDS[1] = [-0.5, 0.5]
@@ -77,12 +99,11 @@ for rep in range(reps):
 
     print("Rep: {} =========================================================").format(rep)
 
-    for i in range(10):
-        s_t = env.reset()
+    s_t = env.reset()
 
-        # RmsAlg(rthres, influence, risk_default)
-        alg = RmsAlg(rthres=-1, influence=1, risk_default=0)
-        alg.add_to_v(state_to_bucket(s_t), s_t)
+    # RmsAlg(rthres, influence, risk_default)
+    alg = RmsAlg(rthres=-1, influence=1, risk_default=0)
+    alg.add_to_v(state_to_bucket(s_t), s_t)
 
     misc = {'step_seq': []}
     prev_misc = misc
