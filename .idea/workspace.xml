@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a88a3b31-1b23-4f3b-8f98-6d4351f82a5a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conf_cartpole_exp.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/setup.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/cartpole_experiment.py" afterPath="$PROJECT_DIR$/cartpole_exp.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/figures/results.pdf" afterPath="$PROJECT_DIR$/figures/results.pdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cartpole_exp.py" afterPath="$PROJECT_DIR$/cartpole_exp.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf_cartpole_exp.py" afterPath="$PROJECT_DIR$/conf_cartpole_exp.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,21 +19,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="conf_cartpole_exp.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="conf_cartpole_exp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+            <state relative-caret-position="75">
+              <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cartpole_exp.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cartpole_exp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cartpole_exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="9" column="36" lean-forward="false" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+            <state relative-caret-position="750">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -136,8 +135,8 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/print_results.py" />
         <option value="$PROJECT_DIR$/cartpole_experiment.py" />
-        <option value="$PROJECT_DIR$/conf_cartpole_exp.py" />
         <option value="$PROJECT_DIR$/cartpole_exp.py" />
+        <option value="$PROJECT_DIR$/conf_cartpole_exp.py" />
       </list>
     </option>
   </component>
@@ -196,6 +195,11 @@
             <path>
               <item name="rms" type="b2602c69:ProjectViewProjectNode" />
               <item name="rms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rms" type="462c0819:PsiDirectoryNode" />
+              <item name="figures" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rms" type="b2602c69:ProjectViewProjectNode" />
@@ -649,21 +653,21 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cartpole_experiment.py" />
-    <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cartpole_exp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="9" column="36" lean-forward="false" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+        <state relative-caret-position="750">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf_cartpole_exp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -47,21 +47,21 @@ qLearnOpts = {'gamma': 0.9,
               }
 
 # Number of discrete states (bucket) per state dimension
-NUM_BUCKETS = (1, 1, 6, 3)  # (x, x', theta, theta')
-# Number of discrete actions
-NUM_ACTIONS = env.action_space.n  # (left, right)
-# Bounds for each discrete state
-STATE_BOUNDS = list(zip(env.observation_space.low, env.observation_space.high))
-STATE_BOUNDS[1] = [-0.5, 0.5]
-STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
-
-num_actions = env.action_space.n  # (left, right)
-num_states = tuple2int(NUM_BUCKETS)
+NUM_BUCKETS = params['num_buckets']  # (x, x', theta, theta')
 max_games = params['max_games']
 init_epsilon = params['init_epsilon']
 end_epsilon = params['end_epsilon']
 test_period = params['test_period']
 reps = params['reps']
+
+# Number of discrete actions
+NUM_ACTIONS = env.action_space.n  # (left, right)
+num_actions = env.action_space.n  # (left, right)
+num_states = tuple2int(NUM_BUCKETS)
+# Bounds for each discrete state
+STATE_BOUNDS = list(zip(env.observation_space.low, env.observation_space.high))
+STATE_BOUNDS[1] = [-0.5, 0.5]
+STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
 epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
 
 reward_results = np.zeros((reps, max_games))
