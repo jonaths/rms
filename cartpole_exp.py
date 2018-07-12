@@ -156,8 +156,8 @@ for rep in range(reps):
             risk_penalty = alg.get_risk(bucket_obs)
             # print(r, risk_penalty)
 
-            # reward_signal = r + risk_penalty
-            reward_signal = r
+            reward_signal = r + risk_penalty
+            # reward_signal = r
             agent.observeTransition(bucket_state, action_idx, bucket_obs, reward_signal)
             misc['step_seq'].append(bucket_state)
 
