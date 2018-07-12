@@ -101,26 +101,29 @@ for rep in range(reps):
 
         while not done:
 
-            action_idx = agent.getAction(state_to_bucket(s_t))
+            bucket_state = state_to_bucket(s_t)
+
+            action_idx = agent.getAction(bucket_state)
             # action_idx = input("Action: ")
             obs, r, done, _ = env.step(action_idx)
+            bucket_obs = state_to_bucket(obs)
             # env.render()
 
-            if state_to_bucket(s_t) in [10, 42]:
+            if bucket_state in [10, 42]:
                 slope_r = r
             else:
                 slope_r = r
-            alg.update(s=state_to_bucket(s_t), r=slope_r, sprime=state_to_bucket(obs), sprime_features=obs)
+            alg.update(s=bucket_state, r=slope_r, sprime=bucket_obs, sprime_features=obs)
 
             # alg.update(s=state_to_bucket(s_t), r=r, sprime=state_to_bucket(obs), sprime_features=obs)
 
-            risk_penalty = alg.get_risk(state_to_bucket(obs))
+            risk_penalty = alg.get_risk(bucket_obs)
             # print(r, risk_penalty)
 
             # reward_signal = r + risk_penalty
             reward_signal = r
-            agent.observeTransition(state_to_bucket(s_t), action_idx, state_to_bucket(obs), reward_signal)
-            misc['step_seq'].append(state_to_bucket(s_t))
+            agent.observeTransition(bucket_state, action_idx, bucket_obs, reward_signal)
+            misc['step_seq'].append(bucket_state)
 
             # print("=", state_to_bucket(s_t), action_idx, state_to_bucket(obs), reward_signal)
 
@@ -138,13 +141,15 @@ for rep in range(reps):
         if done:
             done = False
             s_t = env.reset()
-            alg.add_to_v(state_to_bucket(s_t), s_t)
+            bucket_state = state_to_bucket(s_t)
+            alg.add_to_v(bucket_state, s_t)
+
             agent.stopEpisode()
             agent.startEpisode()
 
             reward_results[rep][GAME] = r_t
             steps_results[rep][GAME] = t
-            end_state_results[rep][GAME] = misc['step_seq'][-1]
+            end_state_results[rep][GAME] = bucket_obs
 
             print("total reward: " + str(reward_results[rep][GAME]))
 
