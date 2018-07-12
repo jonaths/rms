@@ -7,6 +7,7 @@ import numpy as np
 from rms.rms import RmsAlg
 import sys
 import math
+from conf_cartpole_exp import params
 
 # from plotter import Plotter
 
@@ -56,12 +57,12 @@ STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
 
 num_actions = env.action_space.n  # (left, right)
 num_states = tuple2int(NUM_BUCKETS)
-max_games = 500
-init_epsilon = 1.
-end_epsilon = 0.1
-test_period = 0.7
+max_games = params['max_games']
+init_epsilon = params['init_epsilon']
+end_epsilon = params['end_epsilon']
+test_period = params['test_period']
+reps = params['reps']
 epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
-reps = 4
 
 reward_results = np.zeros((reps, max_games))
 steps_results = np.zeros((reps, max_games))
