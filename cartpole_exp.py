@@ -147,20 +147,22 @@ for rep in range(reps):
             obs, r, done, _ = env.step(action_idx)
             bucket_obs = state_to_bucket(obs)
 
-            if GAME > max_games - 2:
-                env.render()
-                time.sleep(0.1)
+            env.render()
+            # if GAME > max_games - 1:
+            #     env.render()
+            #     time.sleep(0.1)
 
             if bucket_obs in params['terminal_states']:
-                slope_r = r
+                slope_r = -0.1
             else:
                 slope_r = r
-            alg.update(s=bucket_state, r=slope_r, sprime=bucket_obs, sprime_features=obs)
+            # alg.update(s=bucket_state, r=slope_r, sprime=bucket_obs, sprime_features=obs)
 
             risk_penalty = alg.get_risk(bucket_obs)
 
-            reward_signal = r + risk_penalty
+            # reward_signal = r + risk_penalty
             # reward_signal = r
+            reward_signal = slope_r
 
             agent.observeTransition(bucket_state, action_idx, bucket_obs, reward_signal)
             misc['step_seq'].append(bucket_state)
