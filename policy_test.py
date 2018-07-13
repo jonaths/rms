@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 policy = np.load('statistics/policy.npy')
 print(policy.shape)
-exp_number = 0
+exp_number = -3
 for i in range(policy.shape[1]):
     print(i, policy[exp_number][i])
 

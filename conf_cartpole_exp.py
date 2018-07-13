@@ -8,7 +8,7 @@ params = {
     'state_bounds_2': [-0.23, 0.23],
     'terminal_states': [0, 1, 2, 21, 22, 23],
     'rms':{
-        'rthres': -1,
-        'influence': 1
+        'rthres': 0,
+        'influence': 2
     }
 }

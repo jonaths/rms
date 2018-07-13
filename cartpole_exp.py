@@ -116,6 +116,8 @@ for rep in range(reps):
 
     s_t = env.reset()
 
+    # aqui voy... comenzar a probar con render y ver que rms propageue el riesgo en egunda iteraciosn
+
     # RmsAlg(rthres, influence, risk_default)
     alg = RmsAlg(rthres=params['rms']['rthres'], influence=params['rms']['influence'], risk_default=0)
     alg.add_to_v(state_to_bucket(s_t), s_t)
@@ -145,26 +147,24 @@ for rep in range(reps):
             bucket_obs = state_to_bucket(obs)
             # env.render()
 
-            if bucket_state in params['terminal_states']:
+            if bucket_obs in params['terminal_states']:
                 slope_r = r
             else:
                 slope_r = r
             alg.update(s=bucket_state, r=slope_r, sprime=bucket_obs, sprime_features=obs)
 
-            # alg.update(s=state_to_bucket(s_t), r=r, sprime=state_to_bucket(obs), sprime_features=obs)
-
             risk_penalty = alg.get_risk(bucket_obs)
-            # print(r, risk_penalty)
 
             reward_signal = r + risk_penalty
             # reward_signal = r
+
             agent.observeTransition(bucket_state, action_idx, bucket_obs, reward_signal)
             misc['step_seq'].append(bucket_state)
 
+            # print("o", np.around(obs, 4))
             # print("=", state_to_bucket(s_t), action_idx, state_to_bucket(obs), reward_signal)
-
-            # env.render()
-            # print("risk_dict", alg.get_risk_dict_no_zeros())
+            # print('r', r, risk_penalty)
+            # print("d", alg.get_risk_dict_no_zeros())
 
             prev_misc = misc
             s_t = obs
@@ -180,7 +180,7 @@ for rep in range(reps):
             steps_results[rep][GAME] = t
             end_state_results[rep][GAME] = bucket_obs
             print("total reward: " + str(reward_results[rep][GAME]))
-            print("final_state: " + str(bucket_state))
+            print("final_state: " + str(bucket_obs))
 
             s_t = env.reset()
             bucket_state = state_to_bucket(s_t)
