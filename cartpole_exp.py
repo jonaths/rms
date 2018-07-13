@@ -8,6 +8,7 @@ from rms.rms import RmsAlg
 import sys
 import math
 from conf_cartpole_exp import params
+import time
 
 # from plotter import Plotter
 
@@ -145,7 +146,10 @@ for rep in range(reps):
             # action_idx = input("Action: ")
             obs, r, done, _ = env.step(action_idx)
             bucket_obs = state_to_bucket(obs)
-            # env.render()
+
+            if GAME > max_games - 2:
+                env.render()
+                time.sleep(0.1)
 
             if bucket_obs in params['terminal_states']:
                 slope_r = r

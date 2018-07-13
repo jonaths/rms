@@ -57,6 +57,12 @@ axs[2].plot(t, np.average(np.cumsum(count, axis=1), axis=0))
 axs[2].set_ylabel('Avg. failure')
 axs[2].set_xlabel('Episodes')
 
+print("end state count:")
+unique, counts = np.unique(end_state, return_counts=True)
+print unique
+print counts
+
 plt.tight_layout()
 plt.savefig('figures/results.pdf')
 plt.show()
+
