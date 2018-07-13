@@ -60,6 +60,21 @@ def state_to_bucket(state):
     return tuple2int(NUM_BUCKETS, tuple(bucket_indice))
 
 
+def ind2coord(index, rows):
+    """
+    Converts an index to coordinates
+    :param index: int
+    :return:
+     """
+
+    assert (index >= 0)
+    # assert(index < self.n - 1)
+
+    col = index // rows
+    row = index % rows
+
+    return [row, col]
+
 env = gym.make('CartPole-v0')
 
 actionFn = lambda state: range(env.action_space.n)
@@ -89,6 +104,7 @@ STATE_BOUNDS[3] = [-math.radians(50), math.radians(50)]
 epsilon_step = (init_epsilon - end_epsilon) / (max_games * test_period)
 
 print(STATE_BOUNDS)
+
 # states = [
 #     [0., 0., 0., 0.],
 #     [0., 0., 0., -0.8726646259971648],
@@ -121,7 +137,11 @@ for rep in range(reps):
 
     # RmsAlg(rthres, influence, risk_default)
     alg = RmsAlg(rthres=params['rms']['rthres'], influence=params['rms']['influence'], risk_default=0)
-    alg.add_to_v(state_to_bucket(s_t), s_t)
+
+    # IMPORTANTE: ind2coord con st y 3 es un mega hackeo que solo funciona con 'num_buckets': (1, 1, 8, 3) #############
+    # Lo correcto seria modificar rms para que funcione con cualquier tamano de vector y modificar la medida ###########
+    # de similaridad a euclidiana por ejemplo. Checar todas las llamadas alg.add_to_v y update. ########################
+    alg.add_to_v(state_to_bucket(s_t), ind2coord(state_to_bucket(s_t), 3))
 
     misc = {'step_seq': []}
     prev_misc = misc
@@ -147,29 +167,29 @@ for rep in range(reps):
             obs, r, done, _ = env.step(action_idx)
             bucket_obs = state_to_bucket(obs)
 
-            env.render()
-            # if GAME > max_games - 1:
-            #     env.render()
-            #     time.sleep(0.1)
+            # env.render()
+            if GAME > max_games - 1:
+                env.render()
+                time.sleep(0.01)
 
             if bucket_obs in params['terminal_states']:
                 slope_r = -0.1
             else:
                 slope_r = r
-            # alg.update(s=bucket_state, r=slope_r, sprime=bucket_obs, sprime_features=obs)
+            alg.update(s=bucket_state, r=slope_r, sprime=bucket_obs, sprime_features=ind2coord(state_to_bucket(obs), 3))
 
             risk_penalty = alg.get_risk(bucket_obs)
 
-            # reward_signal = r + risk_penalty
+            reward_signal = r + risk_penalty
             # reward_signal = r
-            reward_signal = slope_r
+            # reward_signal = slope_r
 
             agent.observeTransition(bucket_state, action_idx, bucket_obs, reward_signal)
             misc['step_seq'].append(bucket_state)
 
             # print("o", np.around(obs, 4))
             # print("=", state_to_bucket(s_t), action_idx, state_to_bucket(obs), reward_signal)
-            # print('r', r, risk_penalty)
+            # print('r', r, slope_r, risk_penalty)
             # print("d", alg.get_risk_dict_no_zeros())
 
             prev_misc = misc
@@ -190,7 +210,7 @@ for rep in range(reps):
 
             s_t = env.reset()
             bucket_state = state_to_bucket(s_t)
-            alg.add_to_v(bucket_state, s_t)
+            alg.add_to_v(bucket_state, ind2coord(state_to_bucket(s_t), 3))
 
             agent.stopEpisode()
             agent.startEpisode()

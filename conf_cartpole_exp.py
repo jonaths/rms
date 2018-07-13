@@ -2,7 +2,7 @@ params = {
     'max_games': 1000,
     'init_epsilon': 1,
     'end_epsilon': 0.01,
-    'test_period': 0.50,
+    'test_period': 0.40,
     'reps': 5,
     'num_buckets': (1, 1, 8, 3),
     'state_bounds_2': [-0.23, 0.23],
